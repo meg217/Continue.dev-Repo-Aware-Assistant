@@ -7,7 +7,7 @@ Ask questions about your code in VS Code and get answers grounded in your actual
 
 ## What this does
 
-When you type `@rag where is the login function?` in Continue (VS Code), this service:
+When you type `@rag where is the add function?` in Continue (VS Code), this service:
 
 1. Receives the query from Continue
 2. Embeds it using `nomic-embed-text` (a local embedding model)
