@@ -1,5 +1,3 @@
 lib/
 scripts/
-chroma/
-!chroma/.gitkeep
 .venv/
