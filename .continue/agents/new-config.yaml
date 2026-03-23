@@ -1,0 +1,24 @@
+name: Config
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Llama 3.1 8B
+    provider: ollama
+    model: llama3.1:8b
+    apiBase: http://localhost:11434
+    contextLength: 8192
+  - name: Nomic Embed Text
+    provider: ollama
+    model: nomic-embed-text
+    apiBase: http://localhost:11435
+    roles: [embed]
+    contextLength: 8192
+
+context:
+  - provider: file
+  - provider: http
+    params:
+      url: "http://localhost:8001/context"
+      title: rag
+      displayTitle: Codebase RAG
