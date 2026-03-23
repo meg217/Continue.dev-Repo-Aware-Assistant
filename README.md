@@ -163,8 +163,8 @@ Found 142 chunks. Embedding...
 Done. Indexed 142 chunks into collection 'path-to-your-repo'
 ChromaDB stored at: ./chroma
 ```
-Run `python repomap.py --repo Z:\New-Dev-AI-Project\minimal` to view the repo map after indexing.
 
+Run `python repomap.py --repo <drive>:/<path>/minimal` to view the repo map after indexing.
 
 ### How chunking works
 
@@ -184,6 +184,7 @@ The overlap ensures context isn't lost at chunk boundaries.
 
 > You can tell which strategy was used by looking at the `kind` field in search results:  
 > `[semantic]` = tree-sitter parsed, `[window]` = sliding window fallback.
+
 ---
 
 ## Step 5 — Start the API Server
@@ -302,7 +303,7 @@ Returns: `[{name, description, content}, ...]`
 Manual semantic search. Useful for debugging and testing retrieval quality.
 
 ```bash
-curl "http://localhost:8001/search?query=how+does+auth+work&repo=/path/to/repo"
+curl "http://localhost:8001/search?query=how+does+add+function+work&repo=/path/to/repo"
 ```
 
 Returns: `{content: "file.py:10-20 [semantic]\ndef login..."}` 

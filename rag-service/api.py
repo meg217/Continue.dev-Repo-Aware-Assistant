@@ -153,7 +153,7 @@ def search(
     q_emb = embed_text(query)
     res = col.query(
         query_embeddings=[q_emb],
-        n_results=4,
+        n_results=5,
         include=["documents", "metadatas", "distances"],
     )
 
@@ -250,17 +250,29 @@ async def context(body: dict[str, Any], request: Request):
     q_emb = embed_text(query)
     res = col.query(
         query_embeddings=[q_emb],
-        n_results=4,
-        include=["documents", "metadatas"],
+        n_results=5,
+        include=["documents", "metadatas", "distances"],
     )
 
     docs = (res.get("documents") or [[]])[0]
     metas = (res.get("metadatas") or [[]])[0]
+    distances = (res.get("distances") or [[]])[0]
+    print("Distances:", distances)
+
 
     # Build the context items list Continue expects
     items: list[dict[str, str]] = []
-    for d, m in zip(docs, metas, strict=False):
+    # Always include repo structure as first context item
+    items.append({
+        "name": "Repo Structure",
+        "description": "File and function map",
+        "content": build_repomap(repo_root),
+    })
+
+    for d, m, dist in zip(docs, metas, distances, strict=False):
         if not isinstance(d, str):
+            continue
+        if dist > 400: # filter out chunks that don't match high
             continue
         header = ""
         if isinstance(m, dict):
@@ -272,5 +284,6 @@ async def context(body: dict[str, Any], request: Request):
                 "content": _cap_tokens(d, 400),
             }
         )
+        print("Distances:", dist)
 
     return items

@@ -103,8 +103,8 @@ IGNORE_DIRS = {
     "node_modules",
     ".venv", "__pycache__", ".mypy_cache", ".pytest_cache",
     "Lib", "Scripts", "Include",   # Windows venv internals
-    ".idea", ".vscode"
-    # "docs",                        # Sphinx / generated docs
+    ".idea", ".vscode",
+    "docs",                        # Sphinx / generated docs
 }
 
 
